@@ -27,20 +27,70 @@ nltk.pos_tag(text)
 
 
 #Aufgabe 5
-grammar = nltk.CFG.fromstring("""
-	PHRASE -> AdjP | NP CON NP
-	NP -> Adj N | N
-	AdjP -> N CON N
-	Adj -> 'old'
-	N -> 'men' | 'women'
-	CON -> 'and'
+# 5.1
+
+grammar1 = nltk.ContextFreeGrammar.fromstring("""
+PHRASE -> AdjP | NP CON NP
+NP -> Adj N | N 
+AdjP -> Adj Obj
+Obj -> N CON N
+Adj -> 'old'
+N -> 'men' | 'women'
+CON -> 'and'
 """)
 
 sent = [("old"), ("men"), ("and"), ("women")]
 
+rd_parser = nltk.RecursiveDescentParser(grammar1)
+
+for tree in rd_parser.parse(sent):
+	print(tree)
+        
 # Lesart 1: old men and old women (das Adjektiv wird auf beide Nomen bezogen und
 # dominiert die Nomen = steht im Baum oben).
 # Lesart 2: die Phrase besteht aus zwei "unabhängigen Nomen", nämlich alten Männern
 # und Frauen aller Altersstufen.
+
+# 5.2 Satz (S (NP Mary) (VP (V saw) (NP Bob)))
+
+tree1 = nltk.Tree('NP', ['Mary'])
+
+tree2 = nltk.Tree('NP', ['Bob'])
+
+tree3 = nltk.Tree('V', ['saw'])
+
+tree4 = nltk.Tree('VP', [tree3, tree2])
+
+tree5 = nltk.Tree('S', [tree1, tree4])
+
+print(tree5)
+
+tree5.draw()
+
+# 5.3
+grammar2 = nltk.ContextFreeGrammar.fromstring("""
+S -> NP VP | NP VP Time
+NP -> Det N
+VP -> V NP VTemp | V NP TemP
+TemP -> VTemp Day
+Time -> Day
+Det -> 'The' | 'a'
+N -> 'man' | 'woman'
+V -> 'saw'
+VTemp -> 'last'
+Day -> 'Thursday'
+""")
+
+sent = "The woman saw a man last Thursday".split()
+
+rd_parser = nltk.RecursiveDescentParser(grammar2)
+
+for tree in rd_parser.parse(sent):
+	print(tree)
+
+# Lesart 1: Sie sah ihn zuletzt Dienstag.
+# Lesart 2: Sie sah ihn letzten Dienstag.
+# Lesart mit saw = sägen: überprüft, aber da Vergangenheit vorliegt, keine
+# Lesart möglich, da saw im Präsens (Vergangenheit sawed) keinen Sinn ergibt
 
 #Aufgabe 25

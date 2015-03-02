@@ -1,0 +1,10 @@
+Exercises
+3. (Ch. 5) ☼ Tokenize and tag the following sentence: They wind back the clock, while we chase after the wind. What different pronunciations and parts of speech are involved? (3 Punkte)
+34. (Ch. 5) ★ There are 264 distinct words in the Brown Corpus having exactly three possible tags.
+1. Print a table with the integers 1..10 in one column, and the number of distinct words in the corpus having 1..10 distinct tags in the other column.
+2. For the word with the greatest number of distinct tags, print out sentences from the corpus containing the word, one for each possible tag. (15 Punkte)
+5. (Ch. 8) ☼ In this exercise you will manually construct some parse trees.
+1. Write code to produce two trees, one for each reading of the phrase old men and women
+2. Encode any of the trees presented in this chapter as a labeled bracketing and use nltk.Tree() to check that it is well-formed. Now use draw() to display the tree.
+3. As in (a) above, draw a tree for The woman saw a man last Thursday. (7 Punkte) 
+25. (Ch.8) ◑ Download several electronic books from Project Gutenberg. Write a program to scan these texts for any extremely long sentences. What is the longest sentence you can find? What syntactic construction(s) are responsible for such long sentences? (10 Punkte)
